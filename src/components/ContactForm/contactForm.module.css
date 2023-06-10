@@ -26,6 +26,7 @@ font-size: 4rem;
     border-radius: 7%;
     border: none;
     background-color: darkgray;
+    cursor: pointer;
 
     &:hover,
     :focus{
@@ -33,6 +34,6 @@ font-size: 4rem;
         color: aliceblue;
     }
 
-    cursor: pointer;
+    
 
 }

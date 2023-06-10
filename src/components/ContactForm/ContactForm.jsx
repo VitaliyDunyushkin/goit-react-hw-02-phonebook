@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import css from './phonebook.module.css';
+import css from './contactForm.module.css';
 
-export default class Phonebook extends Component {
+export default class ContactForm extends Component {
   state = {
     name: '',
     number: '',

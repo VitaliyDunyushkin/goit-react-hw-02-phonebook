@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
-import Phonebook from './Phonebook';
-import Contacts from './Contacts';
+import ContactForm from './ContactForm';
+import ContactList from './ContactList';
 import Filter from './Filter';
+import { nanoid } from 'nanoid';
 
 export default class App extends Component {
   state = {
@@ -16,14 +17,31 @@ export default class App extends Component {
   };
 
   formSubmitHandler = contact => {
-    // console.log(contact);
-    this.setState({ contacts: [...this.state.contacts, contact] });
+    // console.log(contact.name);
+    const searchContactName = contact.name;
+    const message = searchContactName + ' is already in contacts';
+    const contactWithId = { ...contact, id: nanoid() };
+
+    if (
+      this.state.contacts.find(contact => contact.name === searchContactName)
+    ) {
+      alert(message);
+    } else {
+      this.setState({ contacts: [...this.state.contacts, contactWithId] });
+    }
   };
 
   searchHandler = event => {
-    console.log('searchHandler >>', event.target.value);
+    // console.log('searchHandler >>', event.target.value);
     this.setState({ filter: event.target.value });
     // console.log(this.state.filter);
+  };
+
+  handleDelete = id => {
+    // console.log('in App >>', id);
+    this.setState(prev => ({
+      contacts: prev.contacts.filter(contact => contact.id !== id),
+    }));
   };
 
   render() {
@@ -32,10 +50,16 @@ export default class App extends Component {
     return (
       <>
         <h1>Phonebook</h1>
-        <Phonebook onFormSubmit={this.formSubmitHandler} />
+        <ContactForm onFormSubmit={this.formSubmitHandler} />
+        <hr />
+
         <h2>Contacts</h2>
         <Filter onSearch={this.searchHandler} value={this.state.filter} />
-        <Contacts contacts={contacts} searchValue={filter} />
+        <ContactList
+          contacts={contacts}
+          searchValue={filter}
+          onClick={this.handleDelete}
+        />
       </>
     );
   }
