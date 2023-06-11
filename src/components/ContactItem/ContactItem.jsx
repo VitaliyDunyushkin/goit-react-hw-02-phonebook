@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import css from './contactItem.module.css';
 
@@ -16,3 +17,7 @@ export default function ContactItem({ id, name, number, onClick }) {
     </li>
   );
 }
+
+ContactItem.propTypes = {
+  onClick: PropTypes.func,
+};

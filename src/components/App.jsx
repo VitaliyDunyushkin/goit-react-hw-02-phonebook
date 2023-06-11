@@ -17,28 +17,26 @@ export default class App extends Component {
   };
 
   formSubmitHandler = contact => {
-    // console.log(contact.name);
-    const searchContactName = contact.name;
-    const message = searchContactName + ' is already in contacts';
-    const contactWithId = { ...contact, id: nanoid() };
+    const { name, number } = contact;
+    const newContact = { name, number, id: nanoid() };
+    const message = name + ' is already in contacts';
 
-    if (
-      this.state.contacts.find(contact => contact.name === searchContactName)
-    ) {
+    if (this.state.contacts.find(contact => contact.name === name)) {
       alert(message);
     } else {
-      this.setState({ contacts: [...this.state.contacts, contactWithId] });
+      this.setState(prevState => {
+        return {
+          contacts: [...prevState.contacts, newContact],
+        };
+      });
     }
   };
 
   searchHandler = event => {
-    // console.log('searchHandler >>', event.target.value);
     this.setState({ filter: event.target.value });
-    // console.log(this.state.filter);
   };
 
   handleDelete = id => {
-    // console.log('in App >>', id);
     this.setState(prev => ({
       contacts: prev.contacts.filter(contact => contact.id !== id),
     }));
@@ -46,6 +44,10 @@ export default class App extends Component {
 
   render() {
     const { contacts, filter } = this.state;
+    const contactsFiltered = contacts.filter(contact => {
+      const nameInLowerCase = contact.name.toLowerCase();
+      return nameInLowerCase.includes(filter.toLowerCase());
+    });
 
     return (
       <>
@@ -54,12 +56,8 @@ export default class App extends Component {
         <hr />
 
         <h2>Contacts</h2>
-        <Filter onSearch={this.searchHandler} value={this.state.filter} />
-        <ContactList
-          contacts={contacts}
-          searchValue={filter}
-          onClick={this.handleDelete}
-        />
+        <Filter onSearch={this.searchHandler} value={filter} />
+        <ContactList contacts={contactsFiltered} onClick={this.handleDelete} />
       </>
     );
   }

@@ -2,19 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import css from './contactList.module.css';
-import ContactItem from './ContactItem/ContactItem';
+import ContactItem from '../ContactItem';
 
-export default function ContactList({ contacts, searchValue, onClick }) {
-  const searchValueInLowerCase = searchValue.toLowerCase();
-
-  const contactsFiltered = contacts.filter(contact => {
-    const nameInLowerCase = contact.name.toLowerCase();
-    return nameInLowerCase.includes(searchValueInLowerCase);
-  });
-
+export default function ContactList({ contacts, onClick }) {
   return (
     <ul className={css.contactsList}>
-      {contactsFiltered.map(({ id, name, number }) => (
+      {contacts.map(({ id, name, number }) => (
         <ContactItem
           key={id}
           id={id}

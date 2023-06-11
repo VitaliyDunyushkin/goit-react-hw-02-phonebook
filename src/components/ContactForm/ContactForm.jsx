@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import css from './contactForm.module.css';
 
@@ -64,3 +65,8 @@ export default class ContactForm extends Component {
     );
   }
 }
+
+ContactForm.propTypes = {
+  state: PropTypes.exact({ name: PropTypes.array, number: PropTypes.string }),
+  onFormSubmit: PropTypes.func,
+};
