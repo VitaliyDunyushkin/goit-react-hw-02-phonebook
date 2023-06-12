@@ -67,6 +67,9 @@ export default class ContactForm extends Component {
 }
 
 ContactForm.propTypes = {
-  state: PropTypes.exact({ name: PropTypes.array, number: PropTypes.string }),
-  onFormSubmit: PropTypes.func,
+  state: PropTypes.exact({
+    name: PropTypes.array.isRequired,
+    number: PropTypes.string.isRequired,
+  }),
+  onFormSubmit: PropTypes.func.isRequired,
 };

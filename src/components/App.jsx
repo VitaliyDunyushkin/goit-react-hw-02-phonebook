@@ -16,8 +16,7 @@ export default class App extends Component {
     filter: '',
   };
 
-  formSubmitHandler = contact => {
-    const { name, number } = contact;
+  formSubmitHandler = ({ name, number }) => {
     const newContact = { name, number, id: nanoid() };
     const message = name + ' is already in contacts';
 

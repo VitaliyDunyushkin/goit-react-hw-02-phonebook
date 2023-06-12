@@ -31,6 +31,6 @@ export default class Filter extends Component {
 }
 
 Filter.propTypes = {
-  onSearch: PropTypes.func,
-  value: PropTypes.string,
+  onSearch: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
 };
